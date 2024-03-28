@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "job-quest-web.Server", "job-quest-web.Server\job-quest-web.Server.csproj", "{B15CB121-2152-46FA-98A0-F96602B0CFC9}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "job-quest-web.client", "job-quest-web.client\job-quest-web.client.esproj", "{7780504A-C341-44D8-A232-249113D07FE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B15CB121-2152-46FA-98A0-F96602B0CFC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B15CB121-2152-46FA-98A0-F96602B0CFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B15CB121-2152-46FA-98A0-F96602B0CFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B15CB121-2152-46FA-98A0-F96602B0CFC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7780504A-C341-44D8-A232-249113D07FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7780504A-C341-44D8-A232-249113D07FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7780504A-C341-44D8-A232-249113D07FE6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7780504A-C341-44D8-A232-249113D07FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7780504A-C341-44D8-A232-249113D07FE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7780504A-C341-44D8-A232-249113D07FE6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {79F31D82-C596-4E97-9771-4405AD8E91C6}
+	EndGlobalSection
+EndGlobal
