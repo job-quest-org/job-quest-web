@@ -1,13 +1,17 @@
 import React from 'react'
-import LoginButton from './authentication/auth'
 import './index.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home  from './modules/Home';
 
 function App() {
     return (
-            <div>
-                <p className="flex font-extrabold text-red-600">Hello world</p>
-                <LoginButton/>
-            </div>
-            );
-        }
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element="#" />
+                <Route path="/contact" element="#" />
+            </Routes>
+        </BrowserRouter>
+        );
+     }
 export default App

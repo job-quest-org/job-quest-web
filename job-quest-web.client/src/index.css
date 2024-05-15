@@ -1,3 +1,23 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Briem+Hand:wght@100..900&display=swap');
+
+.main-container {
+    @apply bg-gray-50 ;
+}
+.main-header {
+    @apply bg-teal-700 sticky flex justify-between items-center text-xl p-5 ;
+}
+.main-navbar {
+    @apply  text-white font-semibold ;
+}
+.main-navbar-item {
+    @apply hover:text-gray-700 font-semibold mr-16 ;
+}
+.header-logo {
+        @apply items-center w-24 space-x-4 ;
+}
+.h1-title {
+    @apply text-5xl text-white font-briem-hand ;
+}

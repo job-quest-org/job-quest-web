@@ -17,7 +17,8 @@ const LoginButton = () => {
   //     })
   //     .catch(error => {
   //     console.error('Error during login', error);
-  //     });
+  //     });  
+  //fetch is making all the intermediate API calls through frontend 
   window.location.href = 'https://localhost:44396/login';
    };
 
