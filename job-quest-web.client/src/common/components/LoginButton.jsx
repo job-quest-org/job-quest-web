@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import glogo from '../assets/Glogo.png'
 
 const LoginButton = () => {
   const handleLogin = () => {
@@ -24,8 +24,11 @@ const LoginButton = () => {
 
   return (
     <div>
-      <button onClick={handleLogin}>Login</button>
-    </div>
+      <button onClick={handleLogin} className="login-button">
+        <img src={glogo} className="login-img-button"/>
+        <span>Sign in with Google</span>
+      </button>
+      </div>
   );
 };
 

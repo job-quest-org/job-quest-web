@@ -1,10 +1,13 @@
 module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  darkMode: 'media',
   theme: {
     extend: {
       fontFamily: {
-        'briem-hand': ['Briem Hand', 'sans-serif'],
+        'briem-hand': ['Briem Hand', 'sans-serif']
+      },
+      backgroundImage: {
+        'svg-background': "url('./common/assets/background.svg')"
       },
     },
   },
