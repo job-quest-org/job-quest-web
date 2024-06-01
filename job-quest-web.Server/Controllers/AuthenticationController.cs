@@ -1,3 +1,4 @@
+using job_quest_web.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -26,7 +27,7 @@ namespace JQ.Controllers
         {
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Url.Action("Response")
+                RedirectUri = Url.Action("User")
             };
 
             return Challenge(properties, GoogleDefaults.AuthenticationScheme);
@@ -46,6 +47,26 @@ namespace JQ.Controllers
             });
 
             return Ok(json);
+        }
+        [EnableCors("JobQuestPolicy")]
+        [HttpGet("user")]
+        public async Task<IActionResult> User()
+        {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var claims = result?.Principal?.Claims?.ToList();
+            var customClaims = new CustomClaim
+            {
+                Name = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value,
+                Email = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
+                Issuer = claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Issuer,
+                IsAuthenticated = claims?.FirstOrDefault(c => c.Type == "IsAuthenticated")?.Value,
+            };  
+
+            // Serialize claims to JSON
+            var json = JsonSerializer.Serialize(customClaims, new JsonSerializerOptions());
+
+            // Redirect to frontend URL
+            return Redirect("https://localhost:5173/User/?data=" + Uri.EscapeDataString(json));
         }
     }
 }

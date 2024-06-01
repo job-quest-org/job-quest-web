@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using job_quest_dotnet.JQApiConstants;
 using JQ.BusinessLayer;
 using JQ.Controllers;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,14 @@ builder.Services.AddAuthentication(options =>
         options.LogoutPath = "/logout";
         options.Cookie.Name = "JQ_cookie";
         options.Cookie.HttpOnly = true;
+        options.Events.OnSigningIn = async context =>
+        {
+            var claimsIdentity = context.Principal.Identity as ClaimsIdentity;
+            if (claimsIdentity != null)
+            {
+                claimsIdentity.AddClaim(new Claim("IsAuthenticated", "true"));
+            }
+        };
         //options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
         //options.Cookie.IsEssential = true;
         //options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;//default is Lax even if not provided
