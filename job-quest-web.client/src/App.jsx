@@ -7,16 +7,16 @@ import UserContextProvider from "./common/context/UserContextProvider";
 
 function App() {
   return (
-    //<UserContextProvider value={{ name: 'John Doe', setName: () => {}, email: 'john.doe@example.com', setEmail: () => {}, isAuthenticated: false, setIsAuthenticated: () => {} }}>
+    <UserContextProvider value={{ name: 'John Doe', setName: () => {}, email: 'john.doe@example.com', setEmail: () => {}, isAuthenticated: false, setIsAuthenticated: () => {} }}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/User" element={<UserContextProvider><User /></UserContextProvider>} />
+        <Route path="/User" element={<User />} />
         <Route path="/about" element="#" />
         <Route path="/contact" element="#" />
       </Routes>
     </BrowserRouter>
-    //</UserContextProvider>
+    </UserContextProvider>
   );
 }
 export default App;
