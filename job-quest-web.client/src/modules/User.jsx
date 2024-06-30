@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
-import UserContext from "../common/context/UserContext";
+import React, { useEffect, useState, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import UserContext from '../common/context/UserContext';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -8,7 +8,7 @@ function useQuery() {
 
 function User() {
   const query = useQuery();
-  const dataStr = query.get("data");
+  const dataStr = query.get('data');
   const {
     name,
     setName,
@@ -16,11 +16,6 @@ function User() {
     setEmail,
     isAuthenticated,
     setIsAuthenticated,
-    issuer,
-    setIssuer,
-    userType,
-    setUserType,
-    updateUserData,
   } = useContext(UserContext);
   useEffect(() => {
     if (dataStr) {
@@ -30,20 +25,29 @@ function User() {
         setEmail(dataObj.Email);
         setIsAuthenticated(dataObj.IsAuthenticated);
       } catch (err) {
-        console.error("Error parsing data query parameter", err);
+        console.error('Error parsing data query parameter', err);
       }
     }
   }, [dataStr]);
 
   // Render the data or a loading message
   //window.location.href = "/";
-  return (
-    <div>
-      <h1>User Data</h1>
-      <p>Name: {name}</p>
-      <p>Email: {email}</p>
-    </div>
-  );
+  useEffect(() => {
+    if (dataStr) {
+      try {
+        const dataObj = JSON.parse(decodeURIComponent(dataStr));
+        setName(dataObj.Name);
+        setEmail(dataObj.Email);
+        setIsAuthenticated(dataObj.IsAuthenticated);
+      } catch (err) {
+        console.error('Error parsing data query parameter', err);
+      }
+    } else {
+      window.history.back();
+    }
+  }, [dataStr]);
+
+  return null;
 }
 
 export default User;

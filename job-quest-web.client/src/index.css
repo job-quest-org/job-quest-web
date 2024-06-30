@@ -1,7 +1,9 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import url("https://fonts.googleapis.com/css2?family=Briem+Hand:wght@200..900&display=swap");
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Briem+Hand:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&family=Quicksand:wght@300..700&display=swap');
+
 .main-container {
   @apply flex-col bg-svg-background min-h-screen min-w-min  items-center justify-center;
 }
@@ -15,8 +17,12 @@
   @apply text-white font-semibold;
 }
 .main-navbar-item {
-  @apply hover:text-gray-700 font-semibold mr-16;
+  @apply hover:text-gray-700 font-maven-pro mr-16;
 }
+.main-header-account {
+  @apply flex items-center space-x-4 text-xl text-white text-left font-maven-pro font-semibold p-2;
+}
+
 .header-logo {
   @apply items-center w-24 space-x-4;
 }
@@ -27,7 +33,7 @@
   @apply justify-center items-center ml-64 p-10;
 }
 .p-home-welcome {
-  @apply text-5xl text-gray-600 text-left font-extrabold font-briem-hand items-center p-1;
+  @apply text-5xl text-gray-600 text-left font-extrabold font-maven-pro items-center p-1;
 }
 .center-content {
   @apply flex justify-center items-center;

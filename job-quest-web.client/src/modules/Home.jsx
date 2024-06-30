@@ -1,25 +1,34 @@
-import React from "react";
-import "../index.css";
-import Header from "../common/components/Header";
-import LoginButton from "../common/components/LoginButton";
-import UserContextProvider from "../common/context/UserContextProvider";
+import React, { useContext, useEffect } from 'react';
+import '../index.css';
+import Header from '../common/components/Header';
+import LoginButton from '../common/components/LoginButton';
+import UserContext from '../common/context/UserContext';
 
 function Home() {
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    isAuthenticated,
+    setIsAuthenticated,
+  } = useContext(UserContext);
+
   return (
-    //<UserContextProvider>
-    <div className="main-container">
+    <div className='main-container'>
       <Header />
-      <div className="welcome-content">
-        <p className="p-home-welcome">Welcome,</p>
-        <p className="p-home-welcome">Make your dream come true</p>
-        <p className="p-home-welcome">Find jobs of your preference </p>
-        <p className="p-home-welcome">login to continue ➠</p>
+      <div className='welcome-content'>
+        <p className='p-home-welcome'>Welcome,</p>
+        <p className='p-home-welcome'>Make your dream come true</p>
+        <p className='p-home-welcome'>Find jobs of your preference </p>
+        {isAuthenticated ? null : (
+          <p className='p-home-welcome'>login to continue ➠</p>
+        )}
       </div>
-      <div className="center-content">
-        <LoginButton />
+      <div className='center-content'>
+        {isAuthenticated ? null : <LoginButton />}
       </div>
     </div>
-    //</UserContextProvider>
   );
 }
 export default Home;

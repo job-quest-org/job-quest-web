@@ -48,10 +48,10 @@ services.AddCors(options =>
 {
     options.AddPolicy("JobQuestPolicy", builder =>
     {
-        builder.WithOrigins("https://localhost:5173")
-            .AllowAnyHeader()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        builder.WithOrigins("https://localhost:5173") 
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
     });
 });
 services.AddHttpClient();

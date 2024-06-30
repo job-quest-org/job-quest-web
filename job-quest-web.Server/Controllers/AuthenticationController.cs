@@ -2,6 +2,7 @@ using job_quest_web.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -27,7 +28,7 @@ namespace JQ.Controllers
         {
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Url.Action("User")
+                RedirectUri = Url.Action("Response")
             };
 
             return Challenge(properties, GoogleDefaults.AuthenticationScheme);
@@ -38,35 +39,36 @@ namespace JQ.Controllers
         public async Task<IActionResult> Response()
         {
             var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var claims = result?.Principal?.Claims?.ToList();
-
-            // Serialize claims to JSON
-            var json = JsonSerializer.Serialize(claims, new JsonSerializerOptions
-            {
-                ReferenceHandler = ReferenceHandler.Preserve // to prevent circular references in claims object later it should be handled with model
-            });
-
-            return Ok(json);
+           
+            // Redirect to frontend URL
+            return Redirect("https://localhost:5173/");
         }
         [EnableCors("JobQuestPolicy")]
         [HttpGet("user")]
         public async Task<IActionResult> User()
         {
-            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var claims = result?.Principal?.Claims?.ToList();
-            var customClaims = new CustomClaim
+            var claims = HttpContext.User.Claims.ToList();
+            if (claims.Count() == 0)
             {
-                Name = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value,
-                Email = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
-                Issuer = claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Issuer,
-                IsAuthenticated = claims?.FirstOrDefault(c => c.Type == "IsAuthenticated")?.Value,
-            };  
+                return Ok(new CustomClaim());
+            }
+            else
+            {
+                var customClaims = new CustomClaim
+                {
+                    Name = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value,
+                    Email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
+                    Issuer = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Issuer,
+                    IsAuthenticated = claims.FirstOrDefault(c => c.Type == "IsAuthenticated")?.Value,
+                };
 
-            // Serialize claims to JSON
-            var json = JsonSerializer.Serialize(customClaims, new JsonSerializerOptions());
+                // Serialize claims to JSON
+                var json = JsonSerializer.Serialize(customClaims, new JsonSerializerOptions());
 
-            // Redirect to frontend URL
-            return Redirect("https://localhost:5173/User/?data=" + Uri.EscapeDataString(json));
+                // Redirect to frontend URL
+                return Ok(json);
+            }
+
         }
     }
 }
