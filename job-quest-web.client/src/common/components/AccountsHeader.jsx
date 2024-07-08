@@ -13,7 +13,7 @@ function AccountsHeader() {
   const leaveAccountButtonDropdown = () => {
     setAccountButtonDropdown(false);
   };
-  if (isAuthenticated == true) {
+  if (isAuthenticated == false) {
     return (
       <div className='main-header-account'>
       Hi, {name}
@@ -26,8 +26,8 @@ function AccountsHeader() {
         onMouseLeave={leaveAccountButtonDropdown}
         className='main-header-account-ul'
         >
-        <li>Profile</li>
-        <li onClick={() => logout(isAuthenticated, setIsAuthenticated)}>Logout</li>
+        <li className='main-header-account-ul-item'>Profile</li>
+        <li className='main-header-account-ul-item' onClick={() => logout(isAuthenticated, setIsAuthenticated)}>Logout</li>
         </ul>
       )}
       </div>

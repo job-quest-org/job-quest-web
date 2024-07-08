@@ -20,10 +20,13 @@
   @apply hover:text-gray-700 font-maven-pro mr-16;
 }
 .main-header-account {
-  @apply relative text-xl text-white text-left font-maven-pro font-semibold p-2;
+  @apply relative text-lg text-white text-left font-maven-pro font-medium p-2 ;
 }
 .main-header-account-ul {
-  @apply absolute text-teal-800 text-lg ml-6 font-maven-pro bg-gray-200 bg-opacity-50 p-3 rounded-md;
+  @apply absolute items-center -ml-6 font-maven-pro bg-gray-700 bg-opacity-50 rounded-md p-2;
+}
+.main-header-account-ul-item {
+  @apply relative hover:text-gray-700 ease-in-out ml-6 font-maven-pro ;
 }
 .header-logo {
   @apply items-center w-24 space-x-4;
