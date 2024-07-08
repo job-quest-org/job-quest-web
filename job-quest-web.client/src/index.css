@@ -11,7 +11,7 @@
   @apply ml-20;
 }
 .main-header {
-  @apply bg-teal-700 sticky flex justify-between items-center text-xl p-3;
+  @apply bg-teal-700 flex justify-between items-center text-xl p-3;
 }
 .main-navbar {
   @apply text-white font-semibold;
@@ -20,9 +20,11 @@
   @apply hover:text-gray-700 font-maven-pro mr-16;
 }
 .main-header-account {
-  @apply flex items-center space-x-4 text-xl text-white text-left font-maven-pro font-semibold p-2;
+  @apply relative text-xl text-white text-left font-maven-pro font-semibold p-2;
 }
-
+.main-header-account-ul {
+  @apply absolute text-teal-800 text-lg ml-6 font-maven-pro bg-gray-200 bg-opacity-50 p-3 rounded-md;
+}
 .header-logo {
   @apply items-center w-24 space-x-4;
 }

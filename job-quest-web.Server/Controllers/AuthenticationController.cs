@@ -70,5 +70,14 @@ namespace JQ.Controllers
             }
 
         }
+        [EnableCors("JobQuestPolicy")]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Response.Cookies.Delete("JQ_cookie");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Redirect("https://localhost:5173/");
+        }
+
     }
 }

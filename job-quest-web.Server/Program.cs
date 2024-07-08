@@ -19,6 +19,7 @@ builder.Services.AddAuthentication(options =>
         options.LogoutPath = "/logout";
         options.Cookie.Name = "JQ_cookie";
         options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(1); 
         options.Events.OnSigningIn = async context =>
         {
             var claimsIdentity = context.Principal.Identity as ClaimsIdentity;

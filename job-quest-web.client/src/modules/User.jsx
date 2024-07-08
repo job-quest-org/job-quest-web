@@ -9,14 +9,8 @@ function useQuery() {
 function User() {
   const query = useQuery();
   const dataStr = query.get('data');
-  const {
-    name,
-    setName,
-    email,
-    setEmail,
-    isAuthenticated,
-    setIsAuthenticated,
-  } = useContext(UserContext);
+  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated } =
+    useContext(UserContext);
   useEffect(() => {
     if (dataStr) {
       try {
