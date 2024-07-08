@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import UserContext from '../context/UserContext';
 import '../../index.css';
 import { RiAccountPinCircleFill } from 'react-icons/ri';
@@ -6,12 +6,25 @@ import logout from './logout';
 function AccountsHeader() {
   const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated } =
     useContext(UserContext);
-  const [accountButtonDropdown, setAccountButtonDropdown] = React.useState(false);
+  const [accountButtonDropdown, setAccountButtonDropdown] = useState(false);
+  const enterTimeoutRef = useRef(null);
   const enterAccountButtonDropdown = () => {
-    setAccountButtonDropdown(true);
+    if (enterTimeoutRef.current) {
+      clearTimeout(enterTimeoutRef.current);
+    }
+    enterTimeoutRef.current = setTimeout(() => {
+      setAccountButtonDropdown(true);
+    }, 300); 
   };
+
   const leaveAccountButtonDropdown = () => {
-    setAccountButtonDropdown(false);
+    if (enterTimeoutRef.current) {
+      clearTimeout(enterTimeoutRef.current);
+    }
+    enterTimeoutRef.current = setTimeout(() => {
+      setAccountButtonDropdown(false);
+    }, 400);
+    (false);
   };
   if (isAuthenticated == false) {
     return (
