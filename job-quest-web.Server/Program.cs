@@ -4,6 +4,9 @@ using job_quest_dotnet.JQApiConstants;
 using JQ.BusinessLayer;
 using JQ.Controllers;
 using System.Security.Claims;
+using job_quest_web.Server.Service;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,14 +37,15 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
     {
-        options.ClientId = Environment.GetEnvironmentVariable(JQApiConstants.JQOidcClientId);
-        options.ClientSecret = Environment.GetEnvironmentVariable(JQApiConstants.JQOidcClientSecret);
+        options.ClientId = "JQ_OIDC_CLIENT_ID";
+        options.ClientSecret = "JQ_OIDC_CLIENT_SECRET";
     });
 // Add services to the container.
 var services = builder.Services;
 services.AddControllers();
+services.AddMemoryCache();
+services.AddSingleton<CloudUtility>();
 services.AddScoped<CandidateBL>();
-
 services.AddScoped<AuthenticationController>();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
@@ -58,6 +62,11 @@ services.AddCors(options =>
 services.AddHttpClient();
 
 var app = builder.Build();
+
+//Fetch AWS secrets
+var cloudUtility = app.Services.GetRequiredService<CloudUtility>();
+await cloudUtility.GetGoogleIdpSecret();
+var secrets = await cloudUtility.GetGoogleIdpSecret();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -77,6 +86,7 @@ app.UseRouting();
 app.UseCors("JobQuestPolicy");
 
 app.UseAuthentication(); // Add authentication middleware
+
 
 app.UseAuthorization();
 
