@@ -37,8 +37,8 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
     {
-        options.ClientId = "JQ_OIDC_CLIENT_ID";
-        options.ClientSecret = "JQ_OIDC_CLIENT_SECRET";
+        options.ClientId = Environment.GetEnvironmentVariable(JQApiConstants.JQOidcClientId);
+        options.ClientSecret = Environment.GetEnvironmentVariable(JQApiConstants.JQOidcClientSecret);
     });
 // Add services to the container.
 var services = builder.Services;
@@ -65,8 +65,8 @@ var app = builder.Build();
 
 //Fetch AWS secrets
 var cloudUtility = app.Services.GetRequiredService<CloudUtility>();
-await cloudUtility.GetGoogleIdpSecret();
-var secrets = await cloudUtility.GetGoogleIdpSecret();
+var idpSecret = await cloudUtility.GetRdsSecret();
+var rdsSecret = await cloudUtility.GetRdsSecret();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
