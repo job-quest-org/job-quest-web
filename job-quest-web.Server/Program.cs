@@ -22,7 +22,7 @@ builder.Services.AddAuthentication(options =>
         options.LogoutPath = "/logout";
         options.Cookie.Name = "JQ_cookie";
         options.Cookie.HttpOnly = true;
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(1); 
+        options.ExpireTimeSpan = TimeSpan.FromDays(1); 
         options.Events.OnSigningIn = async context =>
         {
             var claimsIdentity = context.Principal.Identity as ClaimsIdentity;
@@ -31,9 +31,6 @@ builder.Services.AddAuthentication(options =>
                 claimsIdentity.AddClaim(new Claim("IsAuthenticated", "true"));
             }
         };
-        //options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
-        //options.Cookie.IsEssential = true;
-        //options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;//default is Lax even if not provided
     })
     .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
     {
@@ -44,7 +41,7 @@ builder.Services.AddAuthentication(options =>
 var services = builder.Services;
 services.AddControllers();
 services.AddMemoryCache();
-services.AddSingleton<CloudUtility>();
+services.AddSingleton<ICloudUtility, CloudUtility>();
 services.AddScoped<CandidateBL>();
 services.AddScoped<AuthenticationController>();
 services.AddEndpointsApiExplorer();
@@ -64,7 +61,7 @@ services.AddHttpClient();
 var app = builder.Build();
 
 //Fetch AWS secrets
-var cloudUtility = app.Services.GetRequiredService<CloudUtility>();
+var cloudUtility = app.Services.GetRequiredService<ICloudUtility>();
 var idpSecret = await cloudUtility.GetRdsSecret();
 var rdsSecret = await cloudUtility.GetRdsSecret();
 

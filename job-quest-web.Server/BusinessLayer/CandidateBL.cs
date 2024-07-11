@@ -3,22 +3,25 @@ using job_quest_dotnet.JQApiConstants;
 using job_quest_dotnet.JQSqlConstants;
 using job_quest_dotnet.Mapper;
 using job_quest_dotnet.Models;
+using job_quest_web.Server.Service;
 
 namespace JQ.BusinessLayer
 {
     public class CandidateBL
     {
         private readonly ILogger<CandidateBL> _logger;
-        public CandidateBL(ILogger<CandidateBL> logger)
+        private readonly ICloudUtility _cloudUtility;
+        public CandidateBL(ILogger<CandidateBL> logger, ICloudUtility cloudUtility)
         {
             _logger = logger;
+            _cloudUtility = cloudUtility;
         }
 
         public async Task<int> GetCandidateCount()
         {
-
             int res = 0;
-            string? constr = Environment.GetEnvironmentVariable(JQApiConstants.JQDbConStrEnv);
+            var secrets = await _cloudUtility.GetRdsSecret();
+            string? constr = secrets["connection"];
             using (SqlConnection connection = new SqlConnection(constr))
             {
                 await connection.OpenAsync();
@@ -33,7 +36,8 @@ namespace JQ.BusinessLayer
         public async Task<List<string>> GetCandidateList()
         {
             List<string> response = new List<string>();
-            string? constr = Environment.GetEnvironmentVariable(JQApiConstants.JQDbConStrEnv);
+            var secrets = await _cloudUtility.GetRdsSecret();
+            string? constr = secrets["connection"];
             using (SqlConnection connection = new SqlConnection(constr))
             {
                 await connection.OpenAsync();

@@ -4,7 +4,7 @@ using Amazon.SecretsManager.Model;
 using Microsoft.Extensions.Caching.Memory;
 namespace job_quest_web.Server.Service
 {
-    public class CloudUtility
+    public class CloudUtility : ICloudUtility
     {
         private readonly IMemoryCache _cache;
         private readonly IAmazonSecretsManager _secretsManager;
