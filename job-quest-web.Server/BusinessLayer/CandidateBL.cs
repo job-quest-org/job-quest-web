@@ -21,7 +21,7 @@ namespace JQ.BusinessLayer
         {
             int res = 0;
             var secrets = await _cloudUtility.GetRdsSecret();
-            string? constr = secrets["connection"];
+            string? constr = await _cloudUtility.GetDbConnectionString(secrets);
             using (SqlConnection connection = new SqlConnection(constr))
             {
                 await connection.OpenAsync();
@@ -36,19 +36,27 @@ namespace JQ.BusinessLayer
         public async Task<List<string>> GetCandidateList()
         {
             List<string> response = new List<string>();
-            var secrets = await _cloudUtility.GetRdsSecret();
-            string? constr = secrets["connection"];
-            using (SqlConnection connection = new SqlConnection(constr))
+            try
             {
-                await connection.OpenAsync();
-                using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetCandidateList, connection))
+                var secrets = await _cloudUtility.GetRdsSecret();
+                string? constr = await _cloudUtility.GetDbConnectionString(secrets);
+                using (SqlConnection connection = new SqlConnection(constr))
                 {
-                    using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                    await connection.OpenAsync();
+                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetCandidateList, connection))
                     {
-                        response = GetCandidateListMapper.MapObject(reader);
+                        using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                        {
+                            response = GetCandidateListMapper.MapObject(reader);
+                        }
                     }
                 }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
             return response;
         }
     }

@@ -9,5 +9,7 @@ namespace job_quest_web.Server.Service
         public Task<Dictionary<string, string>> GetIdpSecret();
 
         public Task<Dictionary<string, string>> GetRdsSecret();
+
+        public Task<string> GetDbConnectionString(Dictionary<string, string> secrets);
     }
 }
