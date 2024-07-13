@@ -26,7 +26,7 @@ function AccountsHeader() {
     }, 400);
     (false);
   };
-  if (isAuthenticated == false) {
+  if (isAuthenticated == true) {
     return (
       <div className='main-header-account'>
       Hi, {name}
