@@ -3,8 +3,9 @@ import UserContext from '../context/UserContext';
 import '../../index.css';
 import { RiAccountPinCircleFill } from 'react-icons/ri';
 import logout from './logout';
+import RoleToggle from './RoleToggle';
 function AccountsHeader() {
-  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated } =
+  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated, role, setRole } =
     useContext(UserContext);
   const [accountButtonDropdown, setAccountButtonDropdown] = useState(false);
   const enterTimeoutRef = useRef(null);
@@ -14,7 +15,7 @@ function AccountsHeader() {
     }
     enterTimeoutRef.current = setTimeout(() => {
       setAccountButtonDropdown(true);
-    }, 300); 
+    }, 300);
   };
 
   const leaveAccountButtonDropdown = () => {
@@ -23,26 +24,29 @@ function AccountsHeader() {
     }
     enterTimeoutRef.current = setTimeout(() => {
       setAccountButtonDropdown(false);
-    }, 400);
+    }, 300);
     (false);
   };
-  if (isAuthenticated == false) {
+  if (isAuthenticated == true) {
     return (
-      <div className='main-header-account'>
-      Hi, {name}
-      <button onMouseEnter={enterAccountButtonDropdown} onMouseLeave={leaveAccountButtonDropdown}>
-        <RiAccountPinCircleFill size={40} />
-      </button>
-      {accountButtonDropdown && (
-        <ul
-        onMouseEnter={enterAccountButtonDropdown}
-        onMouseLeave={leaveAccountButtonDropdown}
-        className='main-header-account-ul'
-        >
-        <li className='main-header-account-ul-item'>Profile</li>
-        <li className='main-header-account-ul-item' onClick={() => logout(isAuthenticated, setIsAuthenticated)}>Logout</li>
-        </ul>
-      )}
+      <div>
+        <RoleToggle />
+        <div className='main-header-account'>
+          Hi, {name}
+          <button onMouseEnter={enterAccountButtonDropdown} onMouseLeave={leaveAccountButtonDropdown}>
+            <RiAccountPinCircleFill size={40} />
+          </button>
+          {accountButtonDropdown && (
+            <ul
+              onMouseEnter={enterAccountButtonDropdown}
+              onMouseLeave={leaveAccountButtonDropdown}
+              className='main-header-account-ul'
+            >
+              <li className='main-header-account-ul-item'>Profile</li>
+              <li className='main-header-account-ul-item' onClick={() => logout(isAuthenticated, setIsAuthenticated)}>Logout</li>
+            </ul>
+          )}
+        </div>
       </div>
     );
   }

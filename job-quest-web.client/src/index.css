@@ -5,47 +5,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&family=Quicksand:wght@300..700&display=swap');
 
 .main-container {
-  @apply flex-col bg-svg-background min-h-screen min-w-min  items-center justify-center;
+  @apply flex-col bg-svg-background min-h-screen min-w-min items-center justify-center;
 }
+
 .main-container-home {
   @apply ml-20;
 }
+
 .main-header {
   @apply bg-teal-700 flex justify-between items-center text-xl p-3;
 }
+
 .main-navbar {
   @apply text-white font-semibold;
 }
+
 .main-navbar-item {
   @apply hover:text-gray-700 font-maven-pro mr-16;
 }
+
+.main-right-header {
+  @apply flex-col p-2;
+
+}
+
 .main-header-account {
-  @apply relative text-lg text-white text-left font-maven-pro font-medium p-2 ;
+  @apply relative text-lg text-white text-left font-maven-pro font-medium p-2;
 }
+
 .main-header-account-ul {
-  @apply absolute items-center -ml-6 font-maven-pro bg-gray-700 bg-opacity-50 rounded-md p-2;
+  @apply absolute items-center -ml-6 font-maven-pro bg-gray-700 bg-opacity-50 rounded-md p-2 backdrop-blur-sm;
 }
+
 .main-header-account-ul-item {
-  @apply relative hover:text-gray-700 ease-in-out ml-6 font-maven-pro ;
+  @apply relative hover:text-gray-700 px-4 py-1 font-maven-pro;
 }
+
 .header-logo {
   @apply items-center w-24 space-x-4;
 }
+
 .h1-title {
   @apply text-5xl text-white font-briem-hand;
 }
+
 .welcome-content {
   @apply justify-center items-center ml-64 p-10;
 }
+
 .p-home-welcome {
   @apply text-5xl text-gray-600 text-left font-extrabold font-maven-pro items-center p-1;
 }
+
 .center-content {
   @apply flex justify-center items-center;
 }
+
 .login-button {
   @apply bg-blue-600 text-white px-2 py-2 rounded shadow hover:bg-teal-700 flex items-center pr-2;
 }
+
 .login-img-button {
   @apply h-10 mr-2;
 }

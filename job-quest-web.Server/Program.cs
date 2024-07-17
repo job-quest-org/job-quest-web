@@ -4,6 +4,9 @@ using job_quest_dotnet.JQApiConstants;
 using JQ.BusinessLayer;
 using JQ.Controllers;
 using System.Security.Claims;
+using job_quest_web.Server.Service;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +22,7 @@ builder.Services.AddAuthentication(options =>
         options.LogoutPath = "/logout";
         options.Cookie.Name = "JQ_cookie";
         options.Cookie.HttpOnly = true;
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(1); 
+        options.ExpireTimeSpan = TimeSpan.FromDays(1); 
         options.Events.OnSigningIn = async context =>
         {
             var claimsIdentity = context.Principal.Identity as ClaimsIdentity;
@@ -28,9 +31,6 @@ builder.Services.AddAuthentication(options =>
                 claimsIdentity.AddClaim(new Claim("IsAuthenticated", "true"));
             }
         };
-        //options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
-        //options.Cookie.IsEssential = true;
-        //options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;//default is Lax even if not provided
     })
     .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
     {
@@ -40,8 +40,9 @@ builder.Services.AddAuthentication(options =>
 // Add services to the container.
 var services = builder.Services;
 services.AddControllers();
+services.AddMemoryCache();
+services.AddSingleton<ICloudUtility, CloudUtility>();
 services.AddScoped<CandidateBL>();
-
 services.AddScoped<AuthenticationController>();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
@@ -58,6 +59,11 @@ services.AddCors(options =>
 services.AddHttpClient();
 
 var app = builder.Build();
+
+//Fetch AWS secrets
+var cloudUtility = app.Services.GetRequiredService<ICloudUtility>();
+var idpSecret = await cloudUtility.GetRdsSecret();
+var rdsSecret = await cloudUtility.GetRdsSecret();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -77,6 +83,7 @@ app.UseRouting();
 app.UseCors("JobQuestPolicy");
 
 app.UseAuthentication(); // Add authentication middleware
+
 
 app.UseAuthorization();
 
