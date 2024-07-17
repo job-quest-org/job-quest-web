@@ -5,6 +5,7 @@ const UserContextProvider = ({ children }) => {
   const [name, setName] = React.useState(null);
   const [email, setEmail] = React.useState(null);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [role, setRole] = React.useState(null);
   return (
     <UserContext.Provider
       value={{
@@ -14,6 +15,8 @@ const UserContextProvider = ({ children }) => {
         setEmail,
         isAuthenticated,
         setIsAuthenticated,
+        role,
+        setRole,
       }}
     >
       {children}

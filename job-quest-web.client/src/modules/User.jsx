@@ -9,7 +9,7 @@ function useQuery() {
 function User() {
   const query = useQuery();
   const dataStr = query.get('data');
-  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated } =
+  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated, role, setRole } =
     useContext(UserContext);
   useEffect(() => {
     if (dataStr) {
@@ -33,6 +33,7 @@ function User() {
         setName(dataObj.Name);
         setEmail(dataObj.Email);
         setIsAuthenticated(dataObj.IsAuthenticated);
+        setRole(dataObj.Role);
       } catch (err) {
         console.error('Error parsing data query parameter', err);
       }

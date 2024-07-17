@@ -11,11 +11,13 @@ function App() {
     <UserContextProvider
       value={{
         name: '',
-        setName: () => {},
+        setName: () => { },
         email: '',
-        setEmail: () => {},
+        setEmail: () => { },
         isAuthenticated: false,
-        setIsAuthenticated: () => {},
+        setIsAuthenticated: () => { },
+        role: () => { },
+        setRole: () => { },
       }}
     >
       <FetchUser />
