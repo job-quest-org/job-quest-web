@@ -3,6 +3,7 @@ using JQ.BusinessLayer;
 using job_quest_dotnet.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 namespace JQ.Controllers
 {
     [ApiController]

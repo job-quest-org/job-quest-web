@@ -1,7 +1,12 @@
 ﻿using Amazon;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Caching.Memory;
+using System.Runtime.Intrinsics.X86;
+using System;
+using Microsoft.AspNetCore.Routing;
 namespace job_quest_web.Server.Service
 {
     public class CloudUtility : ICloudUtility
@@ -40,6 +45,11 @@ namespace job_quest_web.Server.Service
             return secrets;
         }
 
+        public async Task<string> GetDbConnectionString(Dictionary<string, string> secrets)
+        {
+            String dbConStr = String.Concat("Server = " ,secrets["connection"], "; Database=DEV_DB; TrustServerCertificate=True; User Id =", secrets["username"],"; Password=", secrets["password"]);
+            return dbConStr;
+        }
         private async Task<Dictionary<string, string>> FetchSecrets(string secretName)
         {
             GetSecretValueRequest request = new GetSecretValueRequest
