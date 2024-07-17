@@ -4,6 +4,6 @@
     {
         //Sql inline queries
         public const string GetCandidateCount = "select count(*) from tbl_jq_candidate";
-        public const string GetCandidateList = "select CONCAT(first_name, ' ', last_name) from tbl_jq_candidate";
+        public const string GetCandidateList = "select CONCAT(first_name, ' ', last_name) from tbl_jq_user";
     }
 }
