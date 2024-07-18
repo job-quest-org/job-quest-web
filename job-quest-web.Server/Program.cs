@@ -43,6 +43,7 @@ services.AddControllers();
 services.AddMemoryCache();
 services.AddSingleton<ICloudUtility, CloudUtility>();
 services.AddScoped<CandidateBL>();
+services.AddScoped<UserBL>();
 services.AddScoped<AuthenticationController>();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
