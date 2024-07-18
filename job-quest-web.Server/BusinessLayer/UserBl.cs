@@ -27,8 +27,9 @@ namespace JQ.BusinessLayer
                 using (SqlConnection connection = new SqlConnection(constr))
                 {
                     await connection.OpenAsync();
-                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetUserProfile, connection))
+                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetUserProfileSql, connection))
                     {
+                        cmd.Parameters.AddWithValue("@email", email);
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {
                             response = GetUserProfileMapper.MapObject(reader);
@@ -36,11 +37,11 @@ namespace JQ.BusinessLayer
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            
+
             return response;
         }
     }

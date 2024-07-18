@@ -19,11 +19,10 @@ namespace JQ.Controllers
             _logger = logger;
             _userBL = userBL;
         }
-        [Authorize]
-        [HttpGet("GetCandidateCount")]
+        [HttpGet("UserProfile")]
         public async Task<List<UserProfile>> GetUserProfile()
         {
-            string email = CommonUtility.GetUserEmail(HttpContext);
+            string email = "john.doe@gmail.com";
             return await _userBL.GetUserProfile(email);
         }
     }
