@@ -12,6 +12,10 @@
   @apply ml-20;
 }
 
+.main-content {
+  @apply bg-white flex-col w-4/5 ml-20 mt-10 items-center justify-center rounded-md px-20 py-10 shadow border;
+}
+
 .main-header {
   @apply bg-teal-700 flex justify-between items-center text-xl p-3;
 }
@@ -26,7 +30,6 @@
 
 .main-right-header {
   @apply flex-col p-2;
-
 }
 
 .main-header-account {
@@ -67,4 +70,27 @@
 
 .login-img-button {
   @apply h-10 mr-2;
+}
+
+.p-header-title {
+  @apply text-5xl text-gray-600 font-maven-pro font-semibold pb-5;
+}
+
+.p-header-description {
+  @apply text-2xl text-gray-600 font-maven-pro font-semibold pb-5 underline;
+}
+
+.p-form {
+  @apply flex justify-between text-xl text-gray-700 font-semibold;
+}
+
+.form-grid-col-2 {
+  @apply grid gap-6 mb-6 md:grid-cols-2;
+}
+
+.form-grid-col-2-label {
+  @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
+}
+.form-grid-col-2-input {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
 }

@@ -8,6 +8,8 @@
         public const string GetUserProfileSql = "select u.email, u.first_name, u.last_name, u.phone, u.country , u.state, u.city, " +
             "c.degree, c.location, c.experience, c.department, c.skillset, c.cv_doc " +
             "from tbl_JQ_User u left join tbl_JQ_Candidate c on u.email = c.email where u.email = @email ;";
-
+        public const string GetAllUserProfileSql = "select u.email, u.first_name, u.last_name, u.phone, u.country , u.state, u.city, " +
+            "c.degree, c.location, c.experience, c.department, c.skillset, c.cv_doc " +
+            "from tbl_JQ_User u left join tbl_JQ_Candidate c on u.email = c.email;";
     }
 }

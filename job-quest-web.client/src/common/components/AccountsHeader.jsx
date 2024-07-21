@@ -1,4 +1,5 @@
 import React, { useContext, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import '../../index.css';
 import { RiAccountPinCircleFill } from 'react-icons/ri';
@@ -25,7 +26,7 @@ function AccountsHeader() {
     enterTimeoutRef.current = setTimeout(() => {
       setAccountButtonDropdown(false);
     }, 300);
-    (false);
+    false;
   };
   if (isAuthenticated == true) {
     return (
@@ -42,8 +43,15 @@ function AccountsHeader() {
               onMouseLeave={leaveAccountButtonDropdown}
               className='main-header-account-ul'
             >
-              <li className='main-header-account-ul-item'>Profile</li>
-              <li className='main-header-account-ul-item' onClick={() => logout(isAuthenticated, setIsAuthenticated)}>Logout</li>
+              <li className='main-header-account-ul-item'>
+                <Link to='/User/profile'>Profile</Link>
+              </li>
+              <li
+                className='main-header-account-ul-item'
+                onClick={() => logout(isAuthenticated, setIsAuthenticated)}
+              >
+                Logout
+              </li>
             </ul>
           )}
         </div>

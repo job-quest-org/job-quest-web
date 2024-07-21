@@ -17,9 +17,9 @@ namespace JQ.BusinessLayer
             _cloudUtility = cloudUtility;
         }
 
-        public async Task<List<UserProfile>> GetUserProfile(string email)
+        public async Task<UserProfile> GetUserProfile(string email)
         {
-            List<UserProfile> response = new List<UserProfile>();
+            UserProfile response = new UserProfile();
             try
             {
                 var secrets = await _cloudUtility.GetRdsSecret();
@@ -33,6 +33,32 @@ namespace JQ.BusinessLayer
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {
                             response = GetUserProfileMapper.MapObject(reader);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return response;
+        }
+        public async Task<List<UserProfile>> GetAllUserProfile()
+        {
+            List<UserProfile> response = new List<UserProfile>();
+            try
+            {
+                var secrets = await _cloudUtility.GetRdsSecret();
+                string? constr = await _cloudUtility.GetDbConnectionString(secrets);
+                using (SqlConnection connection = new SqlConnection(constr))
+                {
+                    await connection.OpenAsync();
+                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetAllUserProfileSql, connection))
+                    {
+                        using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                        {
+                            response = GetAllUserProfileMapper.MapObject(reader);
                         }
                     }
                 }
