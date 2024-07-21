@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../common/context/UserContext';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from 'axios';
 import Header from '../common/components/Header';
 import '../index.css';
 
 function UserProfile() {
   const [userProfileData, setUserProfileData] = React.useState([]);
+  const [isEditMode, setIsEditMode] = React.useState(false);
   const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated, role, setRole } =
     useContext(UserContext);
   useEffect(() => {
@@ -13,10 +15,8 @@ function UserProfile() {
       try {
         const url = `https://localhost:44396/api/user/UserProfile?email=${encodeURIComponent(email)}`;
         const response = await axios.get(url, {
-          withCredentials: true, // Include credentials/cookies with the request
+          withCredentials: true,
         });
-        console.log(email);
-        console.log(response.data);
         const data = Array.isArray(response.data) ? response.data : [response.data];
         setUserProfileData(data);
       } catch (error) {
@@ -25,13 +25,35 @@ function UserProfile() {
     };
     fetchUserProfile();
   }, []);
+  const initialVlaues = {
+    firstName: UserProfileData.firstName,
+    lastName: UserProfileData.lastName,
+    email: UserProfileData.email,
+    country: UserProfileData.country,
+    state: UserProfileData.state,
+    city: UserProfileData.city,
+    degree: UserProfileData.degree,
+    location: UserProfileData.location,
+    department: UserProfileData.department,
+    experience: UserProfileData.experience,
+    skillset: UserProfileData.skillset,
+    cvDoc: UserProfileData.cvDoc,
+  };
   return (
     <div className='main-container'>
       <Header />
       <div className='main-content'>
         <p className='p-header-title'> Profile</p>
-        <p className='p-header-description'>Profile information</p>
-        {userProfileData.map((profile, index) => (
+        <div className='flex justify-between'>
+          <p className='p-header-description'>Profile information</p>
+          <button className={`edit-btn ${isEditMode ? 'block' : 'block'}`} onClick={() => setIsEditMode(!isEditMode)}>
+            Edit profile
+          </button>
+        </div>
+        <Formik initialValues={initialVlaues} onSubmit={updateProfileInfo}>
+        {({ isSubmitting }) => (
+            <Form>
+         {userProfileData.map((profile, index) => (
           <div key={index}>
             <div class='form-grid-col-2'>
               <div>
@@ -158,6 +180,8 @@ function UserProfile() {
             </div>
           </div>
         ))}
+        </Form>)}
+        </Formik>
       </div>
     </div>
   );
