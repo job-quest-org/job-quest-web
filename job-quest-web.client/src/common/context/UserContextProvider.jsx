@@ -2,15 +2,18 @@ import React from 'react';
 import UserContext from './UserContext';
 
 const UserContextProvider = ({ children }) => {
-  const [name, setName] = React.useState(null);
+  const [firstName, setFirstName] = React.useState(null);
+  const [lastName, setLastName] = React.useState(null);
   const [email, setEmail] = React.useState(null);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [role, setRole] = React.useState(null);
   return (
     <UserContext.Provider
       value={{
-        name,
-        setName,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
         email,
         setEmail,
         isAuthenticated,

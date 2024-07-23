@@ -9,8 +9,18 @@ import UserProfile from './modules/UserProfile';
 import UserContext from './common/context/UserContext';
 
 function App() {
-  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated, role, setRole } =
-    useContext(UserContext);
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    email,
+    setEmail,
+    isAuthenticated,
+    setIsAuthenticated,
+    role,
+    setRole,
+  } = useContext(UserContext);
 
   return (
     <>

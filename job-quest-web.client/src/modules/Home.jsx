@@ -5,8 +5,18 @@ import LoginButton from '../common/components/LoginButton';
 import UserContext from '../common/context/UserContext';
 
 function Home() {
-  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated, role, setRole } =
-    useContext(UserContext);
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    email,
+    setEmail,
+    isAuthenticated,
+    setIsAuthenticated,
+    role,
+    setRole,
+  } = useContext(UserContext);
 
   return (
     <div className='main-container'>

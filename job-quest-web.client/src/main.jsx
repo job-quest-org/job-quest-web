@@ -9,8 +9,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <UserContextProvider
       value={{
-        name: '',
-        setName: () => {},
+        firstName: '',
+        setFirstName: () => {},
+        lastName: '',
+        setLastName: () => {},
         email: '',
         setEmail: () => {},
         isAuthenticated: false,

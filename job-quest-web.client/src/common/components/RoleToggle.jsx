@@ -2,8 +2,18 @@ import React, { useState, useContext } from 'react';
 import UserContext from '../context/UserContext'; // Adjust the import path according to your project structure
 
 const RoleToggle = () => {
-  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated, role, setRole } =
-    useContext(UserContext);
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    email,
+    setEmail,
+    isAuthenticated,
+    setIsAuthenticated,
+    role,
+    setRole,
+  } = useContext(UserContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const onButtonClickCandidate = () => {
