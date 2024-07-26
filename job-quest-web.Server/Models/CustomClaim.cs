@@ -7,6 +7,6 @@
         public string Email { get; set; }
         public string Issuer { get; set; }
         public string IsAuthenticated { get; set; }
-        public string UserType { get; set; }
+        public string Role { get; set; }
     }
 }

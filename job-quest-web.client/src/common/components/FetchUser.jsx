@@ -25,7 +25,8 @@ function FetchUser() {
           setFirstName(data.FirstName);
           setLastName(data.LastName);
           setEmail(data.Email);
-          setIsAuthenticated(data.Email == null || data.Email == undefined ? false : true); //need to investigate why its udenfined in few cases
+          setIsAuthenticated(data.Email == null || data.Email == undefined ? false : true); 
+          setRole(data.Role);
         })
         .catch((error) => {
           console.error('Error fetching claims', error);

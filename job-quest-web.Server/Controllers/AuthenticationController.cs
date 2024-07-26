@@ -68,6 +68,7 @@ namespace JQ.Controllers
                     Email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
                     Issuer = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Issuer,
                     IsAuthenticated = claims.FirstOrDefault(c => c.Type == "IsAuthenticated")?.Value,
+                    Role = "Candidate",
                 };
 
                 // Serialize claims to JSON

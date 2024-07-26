@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
-import UserContext from './common/context/UserContext';
 import UserContextProvider from './common/context/UserContextProvider';
+import { Provider } from 'react-redux';
+import { store } from './common/redux/store.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <Provider store={store}>
     <UserContextProvider
       value={{
         firstName: '',
@@ -23,5 +25,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     >
       <App />
     </UserContextProvider>
+    </Provider>
   </React.StrictMode>,
 );

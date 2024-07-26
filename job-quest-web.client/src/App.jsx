@@ -5,7 +5,7 @@ import User from './modules/User';
 import Home from './modules/Home';
 import FetchUser from './common/components/FetchUser';
 import UserContextProvider from './common/context/UserContextProvider';
-import UserProfile from './modules/UserProfile';
+import CandidateProfile from './modules/CandidateProfile';
 import UserContext from './common/context/UserContext';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/User' element={isAuthenticated == true ? <User /> : null} />
-          <Route path='/User/profile' element={isAuthenticated == true ? <UserProfile /> : null} />
+          <Route path='/User/profile' element={isAuthenticated == true && role == 'Candidate' ? <CandidateProfile /> : null} />
           <Route path='/about' element='#' />
           <Route path='/contact' element='#' />
         </Routes>

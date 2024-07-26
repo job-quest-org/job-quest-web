@@ -17,7 +17,7 @@ namespace JQ.BusinessLayer
             _cloudUtility = cloudUtility;
         }
 
-        public async Task<UserProfile> GetUserProfile(string email)
+        public async Task<UserProfile> GetCandidateProfile(string email)
         {
             UserProfile response = new UserProfile();
             try
