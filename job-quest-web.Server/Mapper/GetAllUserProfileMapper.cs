@@ -5,14 +5,14 @@ namespace job_quest_dotnet.Mapper
 {
     public static class GetAllUserProfileMapper
     {
-        public static List<UserProfile> MapObject(SqlDataReader reader)
+        public static List<CandidateProfile> MapObject(SqlDataReader reader)
         {
-            List<UserProfile> userProfiles = new List<UserProfile>();
+            List<CandidateProfile> userProfiles = new List<CandidateProfile>();
             try
             {
                 while (reader.Read())
                 {
-                    var userProfile = new UserProfile
+                    var userProfile = new CandidateProfile
                     {
                         Email = reader.IsDBNull(0) ? null : reader.GetString(0),
                         FirstName = reader.IsDBNull(1) ? null : reader.GetString(1),

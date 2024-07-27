@@ -3,7 +3,7 @@ using System.Security.Cryptography.Xml;
 
 namespace job_quest_dotnet.Models
 {
-    public class UserProfile
+    public class CandidateProfile
     {
         public string Email { get; set; }
         public string FirstName { get; set; }

@@ -64,7 +64,7 @@ namespace JQ.Controllers
                 var customClaims = new CustomClaim
                 {
                     FirstName = claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value,
-                    //LastName = claims.FirstOrDefault(c => c.Type == ClaimTypes.family )?.Value,
+                    LastName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname)?.Value,
                     Email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
                     Issuer = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Issuer,
                     IsAuthenticated = claims.FirstOrDefault(c => c.Type == "IsAuthenticated")?.Value,

@@ -6,7 +6,7 @@ export const fetchCandidateProfile = createAsyncThunk(
   async (email, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `https://localhost:44396/api/user/UserProfile?email=${encodeURIComponent(email)}`,
+        'https://localhost:44396/api/candidate/profile',
         {
           headers: {
             'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const submitCandidateProfile = createAsyncThunk(
   async (values, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'https://localhost:44396/api/user/CandidateProfile',
+        'https://localhost:44396/api/candidate/profile',
         JSON.stringify(values),
         {
           headers: {

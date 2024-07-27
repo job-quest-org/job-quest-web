@@ -17,36 +17,9 @@ namespace JQ.BusinessLayer
             _cloudUtility = cloudUtility;
         }
 
-        public async Task<UserProfile> GetCandidateProfile(string email)
+        public async Task<List<CandidateProfile>> GetAllUserProfile()
         {
-            UserProfile response = new UserProfile();
-            try
-            {
-                var secrets = await _cloudUtility.GetRdsSecret();
-                string? constr = await _cloudUtility.GetDbConnectionString(secrets);
-                using (SqlConnection connection = new SqlConnection(constr))
-                {
-                    await connection.OpenAsync();
-                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetUserProfileSql, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@email", email);
-                        using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
-                        {
-                            response = GetUserProfileMapper.MapObject(reader);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            return response;
-        }
-        public async Task<List<UserProfile>> GetAllUserProfile()
-        {
-            List<UserProfile> response = new List<UserProfile>();
+            List<CandidateProfile> response = new List<CandidateProfile>();
             try
             {
                 var secrets = await _cloudUtility.GetRdsSecret();

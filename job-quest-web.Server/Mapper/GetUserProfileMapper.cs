@@ -5,9 +5,9 @@ namespace job_quest_dotnet.Mapper
 {
     public static class GetUserProfileMapper
     {
-        public static UserProfile MapObject(SqlDataReader reader)
+        public static CandidateProfile MapObject(SqlDataReader reader)
         {
-            UserProfile userProfile = new UserProfile();
+            CandidateProfile userProfile = new CandidateProfile();
             try
             {
                 while (reader.Read())

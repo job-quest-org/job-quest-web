@@ -20,7 +20,7 @@ const RoleToggle = () => {
     setRole('Candidate');
     setIsDropdownOpen(false);
   };
-  const onButtonClickRecuriter = () => {
+  const onButtonClickRecruiter = () => {
     setRole('Recuriter');
     setIsDropdownOpen(false);
   };
@@ -66,7 +66,7 @@ const RoleToggle = () => {
             </button>
           </li>
           <li>
-            <button className='block px-4 py-2 hover:font-semibold' onClick={onButtonClickRecuriter}>
+            <button className='block px-4 py-2 hover:font-semibold' onClick={onButtonClickRecruiter}>
               Recuriter
             </button>
           </li>
