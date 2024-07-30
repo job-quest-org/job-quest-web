@@ -6,6 +6,8 @@ import Header from '../common/components/Header';
 import '../index.css';
 import * as Yup from 'yup';
 import { fetchCandidateProfile, submitCandidateProfile } from '../common/redux/candidateProfileSlice';
+import PopupStatus from '../common/components/PopupStatus';
+import messages from '../common/constant/messages';
 
 function CandidateProfile() {
   const [isEditMode, setIsEditMode] = React.useState(false);
@@ -21,40 +23,50 @@ function CandidateProfile() {
     role,
     setRole,
   } = useContext(UserContext);
-  const { data, status, error } = useSelector((state) => state.candidateProfile);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const {
+    fetchProfile: { data: fetchProfileData, status: fetchProfileStatus, error: fetchProfileError },
+    submitProfile: { data: submitProfileData, status: submitProfileStatus, error: submitProfileError },
+  } = useSelector((state) => state.candidateProfile);
   
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCandidateProfile(email));
-  }, [dispatch, email]);
+  }, [dispatch]);
 
   const initialValues = {
-    firstName: data.firstName,
-    lastName: data.lastName,
-    email: data.email,
-    phone: data.phone,
-    country: data.country,
-    state: data.state,
-    city: data.city,
-    degree: data.degree,
-    location: data.location,
-    department: data.department,
-    experience: data.experience,
-    skillset: data.skillset,
-    cvDoc: data.cvDoc,
+    firstName: fetchProfileData.firstName,
+    lastName: fetchProfileData.lastName,
+    email: fetchProfileData.email,
+    phone: fetchProfileData.phone,
+    country: fetchProfileData.country,
+    state: fetchProfileData.state,
+    city: fetchProfileData.city,
+    degree: fetchProfileData.degree,
+    location: fetchProfileData.location,
+    department: fetchProfileData.department,
+    experience: fetchProfileData.experience,
+    skillset: fetchProfileData.skillset,
+    cvDoc: fetchProfileData.cvDoc,
   };
-  if (status === 'loading') return <div>Loading...</div>;
-  if (status === 'failed') return <div>Error: {error}</div>;
+  if (fetchProfileStatus === 'loading') return <div>Loading...</div>;
+  if (fetchProfileStatus === 'failed') return <div>Error: {error}</div>;
   
   const handleSubmit = (values, { setSubmitting }) => {
     dispatch(submitCandidateProfile(values)).then(() => {
-      setSubmitting(false); // Set submitting to false once the call is done
+      setSubmitting(false); 
+      setShowPopup(true);
     });
   };
+  const props = { status: submitProfileStatus, message: submitProfileStatus === "failed" ? messages.CANDIDATE_PROFILE_FAILED : messages.CANDIDATE_PROFILE_SUCCESS, setShowPopup };
+   
   return (
     <div className='main-container'>
       <Header />
       <div className='main-content'>
+      {((submitProfileStatus == "failed" || submitProfileStatus == "succeeded") && showPopup ) ?
+      <PopupStatus {...props}/> : null}
         <p className='p-header-title'> Profile</p>
         <div className='flex justify-between'>
           <p className='p-header-description'>Profile information</p>
@@ -72,8 +84,6 @@ function CandidateProfile() {
           validationSchema={Yup.object({
             firstName: Yup.string().required('Required'),
             lastName: Yup.string().required('Required'),
-            degree: Yup.string().required('Required'),
-            location: Yup.string().required('Required'),
           })}
         >
           {({ isSubmitting }) => (
@@ -90,7 +100,7 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='firstName' component='div' />
+                  <ErrorMessage name='firstName' component='div' className='required-validation'/>
                 </div>
                 <div>
                   <label htmlFor='last_name' className='form-grid-col-2-label'>
@@ -103,7 +113,7 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='lastName' component='div' />
+                  <ErrorMessage name='lastName' component='div' className='required-validation'/>
                 </div>
                 <div>
                   <label htmlFor='email' className='form-grid-col-2-label'>
@@ -116,8 +126,7 @@ function CandidateProfile() {
                   <label htmlFor='phone' className='form-grid-col-2-label'>
                     Phone number
                   </label>
-                  <Field type='text' id='phone' name='phone' className='form-grid-col-2-input' />
-                  <ErrorMessage name='phone' component='div' />
+                  <Field type='text' id='phone' name='phone' className='form-grid-col-2-input' readOnly={isEditMode ? false : true}/>
                 </div>
                 <div>
                   <label htmlFor='country' className='form-grid-col-2-label'>
@@ -130,7 +139,6 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='country' component='div' />
                 </div>
                 <div>
                   <label htmlFor='state' className='form-grid-col-2-label'>
@@ -143,7 +151,6 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='state' component='div' />
                 </div>
                 <div>
                   <label htmlFor='city' className='form-grid-col-2-label'>
@@ -156,7 +163,6 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='city' component='div' />
                 </div>
                 <div>
                   <label htmlFor='degree' className='form-grid-col-2-label'>
@@ -169,7 +175,6 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='degree' component='div' />
                 </div>
                 <div>
                   <label htmlFor='location' className='form-grid-col-2-label'>
@@ -182,7 +187,6 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='location' component='div' />
                 </div>
                 <div>
                   <label htmlFor='department' className='form-grid-col-2-label'>
@@ -195,7 +199,6 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='department' component='div' />
                 </div>
                 <div>
                   <label htmlFor='experience' className='form-grid-col-2-label'>
@@ -208,7 +211,6 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='experience' component='div' />
                 </div>
                 <div>
                   <label htmlFor='skillset' className='form-grid-col-2-label'>
@@ -221,7 +223,6 @@ function CandidateProfile() {
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
-                  <ErrorMessage name='skillset' component='div' />
                 </div>
                 <div>
                   <label htmlFor='cvDoc' className='form-grid-col-2-label'>

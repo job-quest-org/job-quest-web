@@ -14,6 +14,7 @@ export const fetchCandidateProfile = createAsyncThunk(
           withCredentials: true,
         },
       );
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -35,11 +36,12 @@ export const submitCandidateProfile = createAsyncThunk(
           withCredentials: true,
         },
       );
-
-      if (response.status === 200) {
+      
+      if (response.status === 200 ) {
+        console.log(response.data);
         return response.data;
       } else {
-        // Failed
+        console.log(response.data);
         return rejectWithValue(response.data);
       }
     } catch (error) {
@@ -51,38 +53,46 @@ export const submitCandidateProfile = createAsyncThunk(
 const candidateProfileSlice = createSlice({
   name: 'candidateProfile',
   initialState: {
-    data: {},
-    status: 'idle',
-    error: null,
+    fetchProfile: {
+      data: {},
+      status: 'idle',
+      error: null,
+    },
+    submitProfile: {
+      data: {},
+      status: 'idle',
+      error: null,
+    },
   },
   reducers: {
-    candidateProfileReducer: (state, action) => {
+    candidateProfileReducer: (state) => {
       return state;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCandidateProfile.pending, (state) => {
-        state.status = 'loading';
+        state.fetchProfile.status = 'loading';
       })
       .addCase(fetchCandidateProfile.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data = action.payload;
+        state.fetchProfile.status = 'succeeded';
+        state.fetchProfile.data = action.payload;
+        console.log('ass',action.payload);
       })
       .addCase(fetchCandidateProfile.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
+        state.fetchProfile.status = 'failed';
+        state.fetchProfile.error = action.payload;
       })
       .addCase(submitCandidateProfile.pending, (state) => {
-        state.status = 'loading';
+        state.submitProfile.status = 'loading';
       })
       .addCase(submitCandidateProfile.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data = action.payload;
+        state.submitProfile.status = 'succeeded';
+        state.submitProfile.data = action.payload;
       })
       .addCase(submitCandidateProfile.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
+        state.submitProfile.status = 'failed';
+        state.submitProfile.error = action.payload;
       });
   },
 });

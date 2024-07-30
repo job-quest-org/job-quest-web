@@ -6,6 +6,8 @@ using job_quest_dotnet.Models;
 using job_quest_web.Server.Service;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.Identity.Client;
+using System.Data;
 
 namespace JQ.BusinessLayer
 {
@@ -57,8 +59,9 @@ namespace JQ.BusinessLayer
                 using (SqlConnection connection = new SqlConnection(constr))
                 {
                     await connection.OpenAsync();
-                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetUserProfileSql, connection))
+                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.SpUpdateCandidateProfile, connection))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@payload", JsonSerializer.Serialize(payload));
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {
@@ -71,7 +74,6 @@ namespace JQ.BusinessLayer
             {
                 Console.WriteLine(ex.Message);
             }
-
             return response;
         }
         public async Task<int> GetCandidateCount()

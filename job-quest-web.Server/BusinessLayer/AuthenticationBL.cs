@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Diagnostics.Eventing.Reader;
+using Azure;
+using System.Text.Json;
+using System.Data;
 
 namespace JQ.BusinessLayer
 {
@@ -23,7 +26,7 @@ namespace JQ.BusinessLayer
             _logger = logger;
             _cloudUtility = cloudUtility;
         }
-        public async void UserVerification(string firstName, string lastName, string email)
+        public async void UserProfileVerification(string firstName, string lastName, string email)
         {
             int res = 0;
             var secrets = await _cloudUtility.GetRdsSecret();
@@ -31,8 +34,9 @@ namespace JQ.BusinessLayer
             using (SqlConnection connection = new SqlConnection(constr))
             {
                 await connection.OpenAsync();
-                using (SqlCommand cmd = new SqlCommand(JQSqlConstants.insertUserLogin, connection))
+                using (SqlCommand cmd = new SqlCommand(JQSqlConstants.SpUserProfileVerification, connection))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@FirstName", firstName);
                     cmd.Parameters.AddWithValue("@LastName", lastName);
                     cmd.Parameters.AddWithValue("@Email", email);

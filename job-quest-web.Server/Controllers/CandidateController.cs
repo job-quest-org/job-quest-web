@@ -31,14 +31,16 @@ namespace JQ.Controllers
         public async Task<CandidateProfile> UpdateUserProfile(CandidateProfile payload)
         {
             string email = CommonUtility.GetUserEmail(HttpContext);
+            CandidateProfile response = new CandidateProfile();
             if (payload.Email == email)
             {
-                return await _candidateBL.UpdateCandidateProfile(payload);
+                response = await _candidateBL.UpdateCandidateProfile(payload);
             }
-            else
+            if (response == null)
             {
                 throw new Exception();
             }
+            return response;
         }
 
         [Authorize]

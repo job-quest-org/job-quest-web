@@ -45,7 +45,7 @@ namespace JQ.Controllers
             string lastName = result.Principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname)?.Value.ToString();
             if (!string.IsNullOrWhiteSpace(email))
             {
-                _authenticationBL.UserVerification(firstName, lastName, email);
+                _authenticationBL.UserProfileVerification(firstName, lastName, email);
             }
             return Redirect("https://localhost:5173/");
         }
