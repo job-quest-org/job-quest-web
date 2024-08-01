@@ -13,6 +13,7 @@
             "c.degree, c.location, c.experience, c.department, c.skillset, c.cv_doc " +
             "from tbl_JQ_User u left join tbl_JQ_Candidate c on u.email = c.email;";
         public const string SpUpdateCandidateProfile = "SP_Update_CandidateProfile";
-        
+        public const string SpUpdateRecruiterProfile = "SP_Update_RecruiterProfile";
+
     }
 }

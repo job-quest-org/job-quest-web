@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import candidateProfileReducer, { fetchCandidateProfile, submitCandidateProfile } from './candidateProfileSlice.js';
+import candidateProfileReducer from './candidateProfileSlice.js';
+import recruiterProfileReducer from './recruiterProfileSlice.js';
 
 export const store = configureStore({
   reducer: {
     candidateProfile: candidateProfileReducer,
+    recruiterProfile: recruiterProfileReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

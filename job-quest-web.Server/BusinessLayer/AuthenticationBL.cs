@@ -2,16 +2,7 @@ using Microsoft.Data.SqlClient;
 using job_quest_dotnet.JQApiConstants;
 using job_quest_dotnet.JQSqlConstants;
 using job_quest_dotnet.Mapper;
-using job_quest_dotnet.Models;
 using job_quest_web.Server.Service;
-using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.Diagnostics.Eventing.Reader;
-using Azure;
-using System.Text.Json;
 using System.Data;
 
 namespace JQ.BusinessLayer

@@ -3,11 +3,11 @@ using Microsoft.Data.SqlClient;
 
 namespace job_quest_dotnet.Mapper
 {
-    public static class GetUserProfileMapper
+    public static class GetRecruiterProfileMapper
     {
-        public static CandidateProfile MapObject(SqlDataReader reader)
+        public static RecruiterProfile MapObject(SqlDataReader reader)
         {
-            CandidateProfile userProfile = new CandidateProfile();
+            RecruiterProfile userProfile = new RecruiterProfile();
             try
             {
                 while (reader.Read())
@@ -19,12 +19,8 @@ namespace job_quest_dotnet.Mapper
                     userProfile.Country = reader.IsDBNull(4) ? null : reader.GetString(4);
                     userProfile.State = reader.IsDBNull(5) ? null : reader.GetString(5);
                     userProfile.City = reader.IsDBNull(6) ? null : reader.GetString(6);
-                    userProfile.Degree = reader.IsDBNull(7) ? null : reader.GetString(7);
-                    userProfile.Location = reader.IsDBNull(8) ? null : reader.GetString(8);
-                    userProfile.Experience = reader.IsDBNull(9) ? null : reader.GetInt32(9);
-                    userProfile.Department = reader.IsDBNull(10) ? null : reader.GetString(10);
-                    userProfile.Skillset = reader.IsDBNull(11) ? null : reader.GetString(11);
-                    userProfile.CvDoc = reader.IsDBNull(12) ? null : reader.GetString(12);
+                    userProfile.Position = reader.IsDBNull(7) ? null : reader.GetString(7);
+                    userProfile.LinkedInProfile = reader.IsDBNull(8) ? null : reader.GetString(8);
                 }
             }
             catch(Exception ex)

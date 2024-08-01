@@ -5,11 +5,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Header from '../common/components/Header';
 import '../index.css';
 import * as Yup from 'yup';
-import { fetchCandidateProfile, submitCandidateProfile } from '../common/redux/candidateProfileSlice';
+import { fetchRecruiterProfile, submitRecruiterProfile } from '../common/redux/recruiterProfileSlice';
 import PopupStatus from '../common/components/PopupStatus';
 import messages from '../common/constant/messages';
 
-function CandidateProfile() {
+function RecruiterProfile() {
   const [isEditMode, setIsEditMode] = React.useState(false);
   const {
     firstName,
@@ -28,11 +28,11 @@ function CandidateProfile() {
   const {
     fetchProfile: { data: fetchProfileData, status: fetchProfileStatus, error: fetchProfileError },
     submitProfile: { data: submitProfileData, status: submitProfileStatus, error: submitProfileError },
-  } = useSelector((state) => state.candidateProfile);
+  } = useSelector((state) => state.recruiterProfile);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCandidateProfile(email));
+    dispatch(fetchRecruiterProfile(email));
   }, [dispatch]);
 
   const initialValues = {
@@ -54,7 +54,7 @@ function CandidateProfile() {
   if (fetchProfileStatus === 'failed') return <div>Error: {error}</div>;
 
   const handleSubmit = (values, { setSubmitting }) => {
-    dispatch(submitCandidateProfile(values)).then(() => {
+    dispatch(submitRecruiterProfile(values)).then(() => {
       setSubmitting(false);
       setShowPopup(true);
     });
@@ -63,8 +63,8 @@ function CandidateProfile() {
     status: submitProfileStatus,
     message:
       submitProfileStatus === 'failed'
-        ? messages.CANDIDATE_PROFILE_FAILED
-        : messages.CANDIDATE_PROFILE_SUCCESS,
+        ? messages.RECRUITER_PROFILE_FAILED
+        : messages.RECRUITER_PROFILE_SUCCESS,
     setShowPopup,
   };
 
@@ -77,7 +77,7 @@ function CandidateProfile() {
         ) : null}
         <p className='p-header-title'> Profile</p>
         <div className='flex justify-between'>
-          <p className='p-header-description'> {isEditMode ? 'Edit information' : 'Profile information'}</p>
+          <p className='p-header-description'>Profile information</p>
           <button
             className={`edit-btn ${isEditMode ? 'hidden' : 'block'}`}
             onClick={() => setIsEditMode(!isEditMode)}
@@ -87,7 +87,7 @@ function CandidateProfile() {
         </div>
         <Formik
           initialValues={initialValues}
-          enableReinitialize={true} //already haldled thtough useEffect
+          enableReinitialize={true}
           onSubmit={handleSubmit}
           validationSchema={Yup.object({
             firstName: Yup.string().required('Required'),
@@ -179,73 +179,25 @@ function CandidateProfile() {
                   />
                 </div>
                 <div>
-                  <label htmlFor='degree' className='form-grid-col-2-label'>
-                    Degree
+                  <label htmlFor='position' className='form-grid-col-2-label'>
+                    Position
                   </label>
                   <Field
                     type='text'
-                    id='degree'
-                    name='degree'
+                    id='position'
+                    name='position'
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
                 </div>
                 <div>
-                  <label htmlFor='location' className='form-grid-col-2-label'>
-                    Preffered Location
+                  <label htmlFor='linkedInProfile' className='form-grid-col-2-label'>
+                    LinkedIn Profile link
                   </label>
                   <Field
                     type='text'
-                    id='location'
-                    name='location'
-                    className='form-grid-col-2-input'
-                    readOnly={isEditMode ? false : true}
-                  />
-                </div>
-                <div>
-                  <label htmlFor='department' className='form-grid-col-2-label'>
-                    Department
-                  </label>
-                  <Field
-                    type='text'
-                    id='department'
-                    name='department'
-                    className='form-grid-col-2-input'
-                    readOnly={isEditMode ? false : true}
-                  />
-                </div>
-                <div>
-                  <label htmlFor='experience' className='form-grid-col-2-label'>
-                    Experience
-                  </label>
-                  <Field
-                    type='number'
-                    id='experience'
-                    name='experience'
-                    className='form-grid-col-2-input'
-                    readOnly={isEditMode ? false : true}
-                  />
-                </div>
-                <div>
-                  <label htmlFor='skillset' className='form-grid-col-2-label'>
-                    Skillset
-                  </label>
-                  <Field
-                    type='text'
-                    id='skillset'
-                    name='skillset'
-                    className='form-grid-col-2-input'
-                    readOnly={isEditMode ? false : true}
-                  />
-                </div>
-                <div>
-                  <label htmlFor='cvDoc' className='form-grid-col-2-label'>
-                    CV
-                  </label>
-                  <Field
-                    type='text'
-                    id='cvDoc'
-                    name='cvDoc'
+                    id='linkedInProfile'
+                    name='linkedInProfile'
                     className='form-grid-col-2-input'
                     readOnly={isEditMode ? false : true}
                   />
@@ -275,4 +227,4 @@ function CandidateProfile() {
   );
 }
 
-export default CandidateProfile;
+export default RecruiterProfile;

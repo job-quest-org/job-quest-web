@@ -3,7 +3,6 @@ using JQ.BusinessLayer;
 using job_quest_dotnet.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using job_quest_web.Server.Service;
 namespace JQ.Controllers
 {
@@ -36,7 +35,7 @@ namespace JQ.Controllers
             {
                 response = await _candidateBL.UpdateCandidateProfile(payload);
             }
-            if (response == null)
+            if (response.Email == null)
             {
                 throw new Exception();
             }

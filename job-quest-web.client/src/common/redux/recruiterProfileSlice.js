@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchCandidateProfile = createAsyncThunk(
-  'candidateProfile/fetch',
+export const fetchRecruiterProfile = createAsyncThunk(
+  'recruiterProfile/fetch',
   async (email, { rejectWithValue }) => {
     try {
-      const response = await axios.get('https://localhost:44396/api/candidate/profile', {
+      const response = await axios.get('https://localhost:44396/api/recruiter/profile', {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -19,12 +19,12 @@ export const fetchCandidateProfile = createAsyncThunk(
   },
 );
 
-export const submitCandidateProfile = createAsyncThunk(
-  'candidateProfile/submit',
+export const submitRecruiterProfile = createAsyncThunk(
+  'recruiterProfile/submit',
   async (values, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'https://localhost:44396/api/candidate/profile',
+        'https://localhost:44396/api/recruiter/profile',
         JSON.stringify(values),
         {
           headers: {
@@ -35,10 +35,8 @@ export const submitCandidateProfile = createAsyncThunk(
       );
 
       if (response.status === 200) {
-        console.log(response.data);
         return response.data;
       } else {
-        console.log(response.data);
         return rejectWithValue(response.data);
       }
     } catch (error) {
@@ -47,8 +45,8 @@ export const submitCandidateProfile = createAsyncThunk(
   },
 );
 
-const candidateProfileSlice = createSlice({
-  name: 'candidateProfile',
+const recruiterProfileSlice = createSlice({
+  name: 'recruiterProfile',
   initialState: {
     fetchProfile: {
       data: {},
@@ -62,35 +60,35 @@ const candidateProfileSlice = createSlice({
     },
   },
   reducers: {
-    candidateProfileReducer: (state) => {
+    recruiterProfileReducer: (state) => {
       return state;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCandidateProfile.pending, (state) => {
+      .addCase(fetchRecruiterProfile.pending, (state) => {
         state.fetchProfile.status = 'loading';
       })
-      .addCase(fetchCandidateProfile.fulfilled, (state, action) => {
+      .addCase(fetchRecruiterProfile.fulfilled, (state, action) => {
         state.fetchProfile.status = 'succeeded';
         state.fetchProfile.data = action.payload;
       })
-      .addCase(fetchCandidateProfile.rejected, (state, action) => {
+      .addCase(fetchRecruiterProfile.rejected, (state, action) => {
         state.fetchProfile.status = 'failed';
         state.fetchProfile.error = action.payload;
       })
-      .addCase(submitCandidateProfile.pending, (state) => {
+      .addCase(submitRecruiterProfile.pending, (state) => {
         state.submitProfile.status = 'loading';
       })
-      .addCase(submitCandidateProfile.fulfilled, (state, action) => {
+      .addCase(submitRecruiterProfile.fulfilled, (state, action) => {
         state.submitProfile.status = 'succeeded';
         state.submitProfile.data = action.payload;
       })
-      .addCase(submitCandidateProfile.rejected, (state, action) => {
+      .addCase(submitRecruiterProfile.rejected, (state, action) => {
         state.submitProfile.status = 'failed';
         state.submitProfile.error = action.payload;
       });
   },
 });
-export const { candidateProfileReducer } = candidateProfileSlice.actions;
-export default candidateProfileSlice.reducer;
+export const { recruiterProfileReducer } = recruiterProfileSlice.actions;
+export default recruiterProfileSlice.reducer;

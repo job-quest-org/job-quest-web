@@ -95,13 +95,13 @@
   @apply bg-gray-200 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5;
 }
 .edit-btn {
-  @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-500 rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100;
+  @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-blue-700 hover:font-bold;
 }
 .submit-btn {
   @apply flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white font-semibold py-1 px-2 rounded;
 }
 .cancel-btn {
-  @apply flex-shrink-0 bg-teal-500 hover:bg-gray-500 border-teal-500 hover:border-teal-700 text-sm border-4 text-white font-semibold py-1 px-2 rounded;
+  @apply flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white font-semibold py-1 px-2 rounded;
 }
 .required-validation {
   @apply text-red-500 text-sm;
@@ -109,7 +109,7 @@
 .popup-error-header {
   @apply flex bg-red-700 text-white font-bold rounded-t px-3 py-1 justify-between;
 }
-.popup-error-message{
+.popup-error-message {
   @apply border border-t-0 border-red-400 rounded-b bg-white px-4 py-3 text-red-700;
 }
 .popup-success-header {

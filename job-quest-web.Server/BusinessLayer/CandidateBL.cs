@@ -4,9 +4,7 @@ using job_quest_dotnet.JQSqlConstants;
 using job_quest_dotnet.Mapper;
 using job_quest_dotnet.Models;
 using job_quest_web.Server.Service;
-using System.Text.Json.Serialization;
 using System.Text.Json;
-using Microsoft.Identity.Client;
 using System.Data;
 
 namespace JQ.BusinessLayer
@@ -37,7 +35,7 @@ namespace JQ.BusinessLayer
                         cmd.Parameters.AddWithValue("@email", email);
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {
-                            response = GetUserProfileMapper.MapObject(reader);
+                            response = GetCandidateProfileMapper.MapObject(reader);
                         }
                     }
                 }
@@ -65,9 +63,10 @@ namespace JQ.BusinessLayer
                         cmd.Parameters.AddWithValue("@payload", JsonSerializer.Serialize(payload));
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {
-                            response = GetUserProfileMapper.MapObject(reader);
+                            response = GetCandidateProfileMapper.MapObject(reader);
                         }
                     }
+
                 }
             }
             catch (Exception ex)
