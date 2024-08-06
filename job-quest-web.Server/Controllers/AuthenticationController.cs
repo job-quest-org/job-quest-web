@@ -1,13 +1,12 @@
 using job_quest_web.Server.Models;
+using JQ.BusinessLayer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 namespace JQ.Controllers
 {
     [ApiController]
@@ -16,10 +15,12 @@ namespace JQ.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly ILogger<AuthenticationController> _logger;
+        private readonly AuthenticationBL _authenticationBL;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger)
+        public AuthenticationController(ILogger<AuthenticationController> logger, AuthenticationBL authenticationBL)
         {
             _logger = logger;
+            _authenticationBL = authenticationBL;
         }
 
         [EnableCors("JobQuestPolicy")]
@@ -39,10 +40,16 @@ namespace JQ.Controllers
         public async Task<IActionResult> Response()
         {
             var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-           
-            // Redirect to frontend URL
+            string email = result.Principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value.ToString();
+            string firstName = result.Principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value.ToString();
+            string lastName = result.Principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname)?.Value.ToString();
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                _authenticationBL.UserProfileVerification(firstName, lastName, email);
+            }
             return Redirect("https://localhost:5173/");
         }
+
         [EnableCors("JobQuestPolicy")]
         [HttpGet("user")]
         public async Task<IActionResult> User()
@@ -56,10 +63,12 @@ namespace JQ.Controllers
             {
                 var customClaims = new CustomClaim
                 {
-                    Name = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value,
+                    FirstName = claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value,
+                    LastName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname)?.Value,
                     Email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
                     Issuer = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Issuer,
                     IsAuthenticated = claims.FirstOrDefault(c => c.Type == "IsAuthenticated")?.Value,
+                    Role = "Candidate",
                 };
 
                 // Serialize claims to JSON
@@ -68,8 +77,8 @@ namespace JQ.Controllers
                 // Redirect to frontend URL
                 return Ok(json);
             }
-
         }
+
         [EnableCors("JobQuestPolicy")]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
@@ -78,6 +87,5 @@ namespace JQ.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("https://localhost:5173/");
         }
-
     }
 }

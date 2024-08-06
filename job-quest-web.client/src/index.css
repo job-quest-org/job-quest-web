@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&family=Quicksand:wght@300..700&display=swap');
 
 .main-container {
-  @apply flex-col bg-svg-background min-h-screen min-w-min items-center justify-center;
+  @apply bg-svg-background min-h-screen min-w-min;
 }
 
 .main-container-home {
@@ -89,8 +89,41 @@
 }
 
 .form-grid-col-2-label {
-  @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
+  @apply block mb-2 text-sm font-medium text-gray-900;
 }
 .form-grid-col-2-input {
-  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  @apply bg-gray-200 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5;
+}
+.edit-btn {
+  @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-blue-700 hover:font-bold;
+}
+.submit-btn {
+  @apply flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white font-semibold py-1 px-2 rounded;
+}
+.cancel-btn {
+  @apply flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white font-semibold py-1 px-2 rounded;
+}
+.required-validation {
+  @apply text-red-500 text-sm;
+}
+.popup-error-header {
+  @apply flex bg-red-700 text-white font-bold rounded-t px-3 py-1 justify-between;
+}
+.popup-error-message {
+  @apply border border-t-0 border-red-400 rounded-b bg-white px-4 py-3 text-red-700;
+}
+.popup-success-header {
+  @apply flex bg-green-700 text-white font-bold rounded-t px-3 py-1 justify-between;
+}
+.popup-success-message {
+  @apply border border-t-0 border-green-400 rounded-b bg-white px-4 py-3 text-green-700;
+}
+.job-card-container {
+  @apply block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow ;
+}
+.job-card-title {
+  @apply mb-2 text-2xl font-bold tracking-tight text-gray-900;
+}
+.job-card-description {
+  @apply mb-3 font-normal text-gray-700;
 }

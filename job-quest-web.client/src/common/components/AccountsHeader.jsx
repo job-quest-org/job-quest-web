@@ -6,8 +6,15 @@ import { RiAccountPinCircleFill } from 'react-icons/ri';
 import logout from './logout';
 import RoleToggle from './RoleToggle';
 function AccountsHeader() {
-  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated, role, setRole } =
-    useContext(UserContext);
+  const {
+    firstName,
+    setFirstName,
+    setLastName,
+    setEmail,
+    isAuthenticated,
+    setIsAuthenticated,
+    setRole,s
+  } = useContext(UserContext);
   const [accountButtonDropdown, setAccountButtonDropdown] = useState(false);
   const enterTimeoutRef = useRef(null);
   const enterAccountButtonDropdown = () => {
@@ -33,7 +40,7 @@ function AccountsHeader() {
       <div>
         <RoleToggle />
         <div className='main-header-account'>
-          Hi, {name}
+          Hi, {firstName}
           <button onMouseEnter={enterAccountButtonDropdown} onMouseLeave={leaveAccountButtonDropdown}>
             <RiAccountPinCircleFill size={40} />
           </button>
@@ -48,7 +55,9 @@ function AccountsHeader() {
               </li>
               <li
                 className='main-header-account-ul-item'
-                onClick={() => logout(isAuthenticated, setIsAuthenticated)}
+                onClick={() =>
+                  logout(setFirstName, setLastName, setEmail, isAuthenticated, setIsAuthenticated, setRole)
+                }
               >
                 Logout
               </li>

@@ -4,17 +4,25 @@ import UserContext from '../context/UserContext';
 import axios from 'axios';
 
 function FetchUser() {
-  const { name, setName, email, setEmail, isAuthenticated, setIsAuthenticated, role, setRole } =
-    useContext(UserContext);
+  const {
+    setFirstName,
+    setLastName,
+    setEmail,
+    isAuthenticated,
+    setIsAuthenticated,
+    setRole,
+  } = useContext(UserContext);
 
   useEffect(() => {
     if (isAuthenticated == false || isAuthenticated == null) {
       axios
         .get('https://localhost:44396/user', { withCredentials: true })
         .then(({ data }) => {
-          setName(data.Name);
+          setFirstName(data.FirstName);
+          setLastName(data.LastName);
           setEmail(data.Email);
-          setIsAuthenticated(data.Email == null || data.Email == undefined ? false : true); //need to investigate why its udenfined in few cases
+          setIsAuthenticated(data.Email == null || data.Email == undefined ? false : true); 
+          setRole(data.Role);
         })
         .catch((error) => {
           console.error('Error fetching claims', error);

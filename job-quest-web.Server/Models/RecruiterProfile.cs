@@ -1,9 +1,10 @@
 ﻿using System.Data;
+using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 
 namespace job_quest_dotnet.Models
 {
-    public class UserProfile
+    public class RecruiterProfile
     {
         public string Email { get; set; }
         public string FirstName { get; set; }
@@ -12,11 +13,8 @@ namespace job_quest_dotnet.Models
         public string Country { get; set; }
         public string State { get; set; }
         public string City { get; set; }
-        public string Degree { get; set; }
-        public string Location { get; set; }
-        public int? Experience { get; set; }
-        public string Department { get; set; }
-        public string Skillset { get; set; }
-        public string CvDoc { get; set; }
+        public string Position { get; set; }
+        public string LinkedInProfile { get; set; }
+
     }
 }

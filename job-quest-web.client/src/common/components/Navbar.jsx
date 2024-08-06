@@ -11,11 +11,11 @@ const Navbar = () => {
       <NavLink to='/User/profile' className='main-navbar-item'>
         Profile
       </NavLink>
+      <NavLink to='/Jobs/browse' className='main-navbar-item'>
+        Jobs
+      </NavLink>
       <NavLink to='/about' className='main-navbar-item'>
         About
-      </NavLink>
-      <NavLink to='/contact' className='main-navbar-item'>
-        Contact
       </NavLink>
     </nav>
   );

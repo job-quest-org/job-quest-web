@@ -2,11 +2,8 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using job_quest_dotnet.JQApiConstants;
 using JQ.BusinessLayer;
-using JQ.Controllers;
 using System.Security.Claims;
 using job_quest_web.Server.Service;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,8 +40,10 @@ services.AddControllers();
 services.AddMemoryCache();
 services.AddSingleton<ICloudUtility, CloudUtility>();
 services.AddScoped<CandidateBL>();
+services.AddScoped<JobsBL>();
+services.AddScoped<RecruiterBL>();
 services.AddScoped<UserBL>();
-services.AddScoped<AuthenticationController>();
+services.AddScoped<AuthenticationBL>();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 services.AddCors(options =>

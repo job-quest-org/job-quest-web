@@ -4,22 +4,25 @@ using job_quest_dotnet.JQSqlConstants;
 using job_quest_dotnet.Mapper;
 using job_quest_dotnet.Models;
 using job_quest_web.Server.Service;
+using System.Text.Json;
+using System.Data;
 
 namespace JQ.BusinessLayer
 {
-    public class UserBL
+    public class JobsBL
     {
-        private readonly ILogger<UserBL> _logger;
+        private readonly ILogger<JobsBL> _logger;
         private readonly ICloudUtility _cloudUtility;
-        public UserBL(ILogger<UserBL> logger, ICloudUtility cloudUtility)
+        public JobsBL(ILogger<JobsBL> logger, ICloudUtility cloudUtility)
         {
             _logger = logger;
             _cloudUtility = cloudUtility;
         }
 
-        public async Task<List<CandidateProfile>> GetAllUserProfile()
+
+        public async Task<List<JobView>> GetJobsList()
         {
-            List<CandidateProfile> response = new List<CandidateProfile>();
+            List<JobView> response = new List<JobView>();
             try
             {
                 var secrets = await _cloudUtility.GetRdsSecret();
@@ -27,20 +30,20 @@ namespace JQ.BusinessLayer
                 using (SqlConnection connection = new SqlConnection(constr))
                 {
                     await connection.OpenAsync();
-                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetAllUserProfileSql, connection))
+                    using (SqlCommand cmd = new SqlCommand(JQSqlConstants.GetJobsList, connection))
                     {
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {
-                            response = GetAllUserProfileMapper.MapObject(reader);
+                            response = GetAllJobsListMapper.MapObject(reader);
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
+            
             return response;
         }
     }
