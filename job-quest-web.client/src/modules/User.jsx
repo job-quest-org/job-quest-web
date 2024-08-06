@@ -10,16 +10,10 @@ function User() {
   const query = useQuery();
   const dataStr = query.get('data');
   const {
-    firstName,
     setFirstName,
-    lastName,
     setLastName,
-    email,
     setEmail,
-    isAuthenticated,
     setIsAuthenticated,
-    role,
-    setRole,
   } = useContext(UserContext);
   useEffect(() => {
     if (dataStr) {

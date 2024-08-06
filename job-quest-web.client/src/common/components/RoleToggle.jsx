@@ -3,14 +3,6 @@ import UserContext from '../context/UserContext'; // Adjust the import path acco
 
 const RoleToggle = () => {
   const {
-    firstName,
-    setFirstName,
-    lastName,
-    setLastName,
-    email,
-    setEmail,
-    isAuthenticated,
-    setIsAuthenticated,
     role,
     setRole,
   } = useContext(UserContext);

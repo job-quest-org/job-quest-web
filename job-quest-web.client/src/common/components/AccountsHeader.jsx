@@ -9,14 +9,11 @@ function AccountsHeader() {
   const {
     firstName,
     setFirstName,
-    lastName,
     setLastName,
-    email,
     setEmail,
     isAuthenticated,
     setIsAuthenticated,
-    role,
-    setRole,
+    setRole,s
   } = useContext(UserContext);
   const [accountButtonDropdown, setAccountButtonDropdown] = useState(false);
   const enterTimeoutRef = useRef(null);

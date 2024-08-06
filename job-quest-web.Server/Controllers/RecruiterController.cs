@@ -33,7 +33,7 @@ namespace JQ.Controllers
             {
                 response = await _recruiterBL.UpdateRecruiterProfile(payload);
             }
-            if (response == null)
+            if (response.Email == null)
             {
                 throw new Exception();
             }

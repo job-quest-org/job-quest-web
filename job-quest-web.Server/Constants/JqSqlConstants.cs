@@ -14,6 +14,6 @@
             "from tbl_JQ_User u left join tbl_JQ_Candidate c on u.email = c.email;";
         public const string SpUpdateCandidateProfile = "SP_Update_CandidateProfile";
         public const string SpUpdateRecruiterProfile = "SP_Update_RecruiterProfile";
-
+        public const string GetJobsList = "SELECT job_id, job_title, job_description, salary, skillset, degree, recruiter_email, start_date, end_date, join_date, experience,status,location,job_mode,created_at, updated_at FROM tbl_JQ_Job WHERE status = 'Open'";
     }
 }

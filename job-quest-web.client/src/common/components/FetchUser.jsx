@@ -5,15 +5,11 @@ import axios from 'axios';
 
 function FetchUser() {
   const {
-    firstName,
     setFirstName,
-    lastName,
     setLastName,
-    email,
     setEmail,
     isAuthenticated,
     setIsAuthenticated,
-    role,
     setRole,
   } = useContext(UserContext);
 

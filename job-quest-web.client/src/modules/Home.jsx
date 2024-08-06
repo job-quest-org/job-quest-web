@@ -6,16 +6,7 @@ import UserContext from '../common/context/UserContext';
 
 function Home() {
   const {
-    firstName,
-    setFirstName,
-    lastName,
-    setLastName,
-    email,
-    setEmail,
     isAuthenticated,
-    setIsAuthenticated,
-    role,
-    setRole,
   } = useContext(UserContext);
 
   return (

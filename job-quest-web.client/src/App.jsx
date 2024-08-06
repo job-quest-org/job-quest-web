@@ -8,19 +8,12 @@ import UserContextProvider from './common/context/UserContextProvider';
 import CandidateProfile from './modules/CandidateProfile';
 import RecruiterProfile from './modules/RecruiterProfile';
 import UserContext from './common/context/UserContext';
+import JobsBrowse from './modules/JobsBrowse';
 
 function App() {
   const {
-    firstName,
-    setFirstName,
-    lastName,
-    setLastName,
-    email,
-    setEmail,
     isAuthenticated,
-    setIsAuthenticated,
     role,
-    setRole,
   } = useContext(UserContext);
 
   return (
@@ -36,7 +29,7 @@ function App() {
               isAuthenticated == true && role == 'Candidate' ? <CandidateProfile /> : <RecruiterProfile />
             }
           />
-          <Route path='/about' element='#' />
+          <Route path='/Jobs/browse' element={<JobsBrowse />} />
           <Route path='/contact' element='#' />
         </Routes>
       </BrowserRouter>

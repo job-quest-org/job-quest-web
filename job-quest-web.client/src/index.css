@@ -118,3 +118,12 @@
 .popup-success-message {
   @apply border border-t-0 border-green-400 rounded-b bg-white px-4 py-3 text-green-700;
 }
+.job-card-container {
+  @apply block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow ;
+}
+.job-card-title {
+  @apply mb-2 text-2xl font-bold tracking-tight text-gray-900;
+}
+.job-card-description {
+  @apply mb-3 font-normal text-gray-700;
+}

@@ -12,16 +12,7 @@ import messages from '../common/constant/messages';
 function RecruiterProfile() {
   const [isEditMode, setIsEditMode] = React.useState(false);
   const {
-    firstName,
-    setFirstName,
-    lastName,
-    setLastName,
     email,
-    setEmail,
-    isAuthenticated,
-    setIsAuthenticated,
-    role,
-    setRole,
   } = useContext(UserContext);
 
   const [showPopup, setShowPopup] = useState(false);
